@@ -42,6 +42,7 @@ const CreateLesson = () => {
         title: "",
         poster: "",
       })
+      window.location.reload();
     } catch (error) {
       toast.error("Có lỗi xảy ra, thử lại sau");
     }
@@ -67,7 +68,7 @@ const CreateLesson = () => {
         <FormInput
           control={control}
           name="poster"
-          label="Poster"
+          label="Ảnh"
           placeholder="Nhập URL poster"
         />
 

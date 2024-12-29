@@ -7,9 +7,12 @@ import { Pencil2Icon } from "@radix-ui/react-icons";
 import { columns } from "./constants";
 import { Table } from "@/components/Table";
 import { Button, HeadLine, Search } from "@/components";
+import CreateDecentralization from "./components/CreateDecentralization";
+import Pagination from "@/components/Pagination";
 
 const Decentralization = ({ initData }) => {
   const data = get(initData, ["0", "items"]);
+  const pagination = get(initData, ["0", "pagination"]);
 
   return (
     <Fragment>
@@ -20,7 +23,7 @@ const Decentralization = ({ initData }) => {
           <Button
             title="Tạo Mới"
             component="label"
-            htmlFor="create-post"
+            htmlFor="create-decentralization"
             iconStart={Pencil2Icon}
             buttonClassName="bg-red-600 hover:bg-red-500 text-white font-medium"
           />
@@ -31,7 +34,14 @@ const Decentralization = ({ initData }) => {
         <Table columns={columns} data={data} />
       </div>
 
-      {/* <CreatePost /> */}
+      <CreateDecentralization />
+
+      <Pagination
+        total={pagination?.totalItems}
+        current={pagination?.currentPage}
+        pageSize={10}
+        defaultCurrent={pagination?.currentPage}
+      />
     </Fragment>
   );
 };

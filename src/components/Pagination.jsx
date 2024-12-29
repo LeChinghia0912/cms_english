@@ -11,7 +11,6 @@ const Pagination = ({ className, ...restProps }) => {
 
   const { push } = useRouter();
   const pathname = usePathname();
-  console.log("🚀 ~ Pagination ~ pathname:", pathname)
 
   const handlePagination = useCallback(
     (currentPage) => {

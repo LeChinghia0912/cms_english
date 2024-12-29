@@ -7,7 +7,7 @@ export const columns = [
     key: "_id",
   },
   {
-    title: "Full Name",
+    title: "Tên đầy đủ",
     dataIndex: "fullname",
     key: "fullname",
     width: 500
@@ -29,6 +29,6 @@ export const columns = [
     dataIndex: "",
     key: "operations",
     width: 150,
-    render: () => <Actions />,
+    render: (data) => <Actions id={data._id} path={"auth/deleted"} />
   },
 ];

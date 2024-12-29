@@ -8,17 +8,21 @@ import { Button, Drawer } from "@/components";
 import { FormInput } from "@/components/Forms";
 import { useSession } from "next-auth/react";
 import { get } from "lodash";
+import { Auth } from "@/yups/auth";
 
-const CreateChapter = () => {
+const CreateDecentralization = () => {
   const { data: auth } = useSession();
   const access_token = get(auth, ["tokens", "access_token"]);
 
   const { control, handleSubmit, reset } = useForm({
-    resolver: Chapter,
+    resolver: Auth,
     defaultValues: {
-      name: "",
-      title: "",
-      poster: "",
+      email: "",
+      password: "",
+      fullname: "",
+      age: "",
+      level: "",
+      phone: "",
     },
   });
 
@@ -27,18 +31,22 @@ const CreateChapter = () => {
       try {
         await httpRequest({
           method: "POST",
-          url: "chapters/created",
+          url: "auth/register",
           data: value,
-          headers: {
-            Authorization: `Bearer ${access_token}`,
-          },
         });
 
-        toast.success("Tạo mới chương thành công");
+        toast.success("Tạo mới người dùng thành công");
 
-        reset({ name: "", title: "", poster: "" });
+        reset({
+          email: "",
+          password: "",
+          fullname: "",
+          age: "",
+          level: "",
+          phone: "",
+        });
 
-        window.location.reload();
+        // window.location.reload();
       } catch (error) {
         toast.error("Có lỗi xảy ra, thử lại sau");
       }
@@ -48,30 +56,52 @@ const CreateChapter = () => {
 
   return (
     <Drawer
-      labelOpen="create-chapter"
+      labelOpen="create-decentralization"
       heading="Tạo Mới"
       listClassName="w-[500px]"
     >
       <div className="flex flex-col gap-4 px-4">
         <FormInput
           control={control}
-          name="name"
-          label="Tên Chương"
-          placeholder="Nhập Tên Chương"
+          name="email"
+          label="Email"
+          placeholder="Nhập email"
+        />
+
+        <FormInput
+          inputType="password"
+          control={control}
+          name="password"
+          label="Password"
+          placeholder="Nhập password"
         />
 
         <FormInput
           control={control}
-          name="title"
-          label="Tiêu Đề Chương"
-          placeholder="Nhập Tiêu Đề Chương"
+          name="fullname"
+          label="Họ và tên"
+          placeholder="Nhập họ và tên"
         />
 
         <FormInput
           control={control}
-          name="poster"
-          label="Ảnh"
-          placeholder="Nhập URL ảnh"
+          name="age"
+          label="Tuổi"
+          placeholder="Nhập tuổi"
+        />
+
+        <FormInput
+          control={control}
+          name="level"
+          label="Trình độ"
+          placeholder="Nhập trình độ"
+        />
+
+        <FormInput
+          control={control}
+          name="phone"
+          label="Số điện thoại"
+          placeholder="Nhập số điện thoại"
         />
 
         <Button
@@ -84,4 +114,4 @@ const CreateChapter = () => {
   );
 };
 
-export default CreateChapter;
+export default CreateDecentralization;

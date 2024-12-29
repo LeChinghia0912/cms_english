@@ -28,6 +28,6 @@ export const columns = [
     dataIndex: "",
     key: "operations",
     width: 150,
-    render: (data) => <Actions id={data._id} />
+    render: (data) => <Actions id={data._id} path={"chapter/deleted"} />
   },
 ];

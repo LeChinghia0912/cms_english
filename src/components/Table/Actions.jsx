@@ -9,7 +9,7 @@ import { usePathname } from "next/navigation";
 ;
 import { httpRequest } from "@/utils";
 
-const Actions = ({ id }) => {
+const Actions = ({ id, path }) => {
   const pathname = usePathname();
   const { data: auth } = useSession();
 
@@ -22,12 +22,13 @@ const Actions = ({ id }) => {
       try {
         await httpRequest({
           method: "DELETE",
-          url: "chapter/deleted",
+          url: path,
           headers: { Authorization: `Bearer ${access_token}` },
           data: { id }
         });
 
         toast.success("Xóa thành công");
+        window.location.reload();
       } catch (error) {
         toast.error("Có lỗi xảy ra trong quá trình xóa");        
       }

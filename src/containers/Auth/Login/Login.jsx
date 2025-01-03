@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import { toast } from "react-toastify";
 import { signIn } from "next-auth/react";
 import { useForm } from "react-hook-form";
@@ -13,7 +13,7 @@ import { Button, HeadLine } from "@/components";
 const Login = () => {
   const { push } = useRouter();
 
-  const { control, handleSubmit } = useForm({
+  const { control, handleSubmit, formState: { errors } } = useForm({
     defaultValues: {
       email: "",
       password: "",
@@ -36,13 +36,26 @@ const Login = () => {
         toast.success("Đăng nhập thành công");
         push(routes.dashboard);
       }
-
     } catch (error) {
       console.log(error);
     }
   }, []);
 
   const handleError = useCallback(() => toast.error("Bạn chưa nhập đầy đủ thông tin"), []);
+
+  // Handle Enter Key Press
+  useEffect(() => {
+    const handleKeyPress = (event) => {
+      if (event.key === 'Enter') {
+        handleSubmit(onSubmit, handleError)();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyPress);
+    return () => {
+      window.removeEventListener('keydown', handleKeyPress);
+    };
+  }, [handleSubmit, onSubmit, handleError]);
 
   return (
     <div className="flex-col min-h-screen gap-4 flex-center">
@@ -55,6 +68,7 @@ const Login = () => {
             name="email"
             label="Email"
             placeholder="Nhập Email"
+            error={errors.email?.message}
           />
 
           <FormInput
@@ -63,6 +77,7 @@ const Login = () => {
             label="Password"
             inputType="password"
             placeholder="Nhập Password"
+            error={errors.password?.message}
           />
 
           <Button

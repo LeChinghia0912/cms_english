@@ -12,6 +12,7 @@ import { Button, HeadLine } from "@/components";
 import CreateLesson from "./components/CreateLesson";
 import CreateQuestion from "./components/CreateQuestion";
 import UpdateLesson from "./components/UpdateLesson";
+import UpdateQuestion from "./components/UpdateQuestion";
 
 const Chapter = ({ initData }) => {
   const { push } = useRouter();
@@ -181,6 +182,7 @@ const Chapter = ({ initData }) => {
                 <div><span className="font-bold">Các câu trả lời:</span> {question?.child?.join(", ")}</div>
                 <div><span className="font-bold">Đáp án chính xác:</span> {question?.results?.join(", ")}</div>
 
+                <Button title="Chỉnh Sửa Câu Hỏi" iconStart={Pencil2Icon} buttonClassName="w-fit bg-blue-500 text-white hover:bg-blue-500 mt-2" component="label" htmlFor="update-question" />
                 <Button title="Xóa Câu Hỏi" iconStart={TrashIcon} buttonClassName="w-fit bg-red-500 text-white hover:bg-red-500 mt-2" onClick={handleDeleteQuestion} />
               </div>
             )}
@@ -199,6 +201,7 @@ const Chapter = ({ initData }) => {
       
       {lesson && <CreateQuestion lesson={lesson} />}
       {lesson && <UpdateLesson key={lesson._id} lesson={lesson} chapter={chapter} />}
+      {question && <UpdateQuestion key={question._id} lesson={lesson} question={question} chapter={chapter} />}
     </Fragment>
   );
 };

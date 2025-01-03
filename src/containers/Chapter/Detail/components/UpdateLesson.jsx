@@ -25,7 +25,7 @@ const UpdateLesson = ({ lesson, chapter }) => {
     },
   });
 
-  const onSubmit = useCallback(async({ name, title }) => {
+  const onSubmit = useCallback(async({ name, title, poster }) => {
     try {
       const match = chapter.slug.match(/-(\d+)/);
 
@@ -37,6 +37,7 @@ const UpdateLesson = ({ lesson, chapter }) => {
           data: { 
             name,
             title,
+            poster,
             slug: name.replaceAll(" ", "-").toLowerCase().replace(/bài/g, "bai") + `-${match[1]}`
           },
         });
@@ -53,7 +54,7 @@ const UpdateLesson = ({ lesson, chapter }) => {
   return (
     <Drawer
       labelOpen="update-lesson"
-      heading="Tạo Mới"
+      heading="Chỉnh sửa bài học"
       listClassName="w-[500px]"
     >
       <div className="flex flex-col gap-4 px-4">

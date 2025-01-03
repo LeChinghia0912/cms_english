@@ -40,7 +40,7 @@ const Update = ({ initData }) => {
   });
 
   const onSubmit = useCallback(
-    async ({ name, title }) => {
+    async ({ name, title, poster  }) => {
       try {
         await httpRequest({
           method: "PATCH",
@@ -48,6 +48,7 @@ const Update = ({ initData }) => {
           data: {
             name,
             title,
+            poster,
             slug: createSlug(name),
           },
           headers: {
